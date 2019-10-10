@@ -1,0 +1,24 @@
+---
+
+- name: Create DB 
+  include_role:
+    name: uniqconsulting.mariadb 
+  vars:
+    mariadb_databases:       
+      - name: "{{ db.name }}"
+        state: present       
+        collation: utf8_general_ci      
+        encoding: utf8       
+    mariadb_users_create:    
+      - name: "{{ db.user }}"
+        password: "{{ db.password }}"
+        hosts:
+          - "localhost"      
+        privs:               
+          - "{{ db.name }}.*:ALL"          
+        append_privs: no
+  with_items: "{{ vhost.databases }}"
+  loop_control:
+    loop_var: db
+
+...

@@ -1,0 +1,9 @@
+---
+
+- name: httpd restarted
+  service: name=httpd state=restarted
+
+- name: nginx restarted
+  service: name=nginx state=restarted
+
+...

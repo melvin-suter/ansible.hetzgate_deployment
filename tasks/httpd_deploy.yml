@@ -1,0 +1,29 @@
+---
+
+- import_tasks: httpd_tasks/preq.yml
+  tags: ['web_stack_deployment','web_stack_deployment.preq']
+
+- import_tasks: httpd_tasks/symlink.yml
+  tags: ['web_stack_deployment','web_stack_deployment.symlink'] 
+
+- import_tasks: httpd_tasks/letsencrypt.yml
+  tags: ['web_stack_deployment','web_stack_deployment.letsencrypt']
+  when: webstack_deployment_letsencrypt == true
+
+- import_tasks: httpd_tasks/database.yml
+  tags: ['web_stack_deployment','web_stack_deployment.database']
+
+- import_tasks: httpd_tasks/git.yml
+  tags: ['web_stack_deployment','web_stack_deployment.git']
+
+
+###############
+#  CONFIG
+###############
+
+- name: Dump Config
+  copy:
+    content: "{{ vhost | to_nice_yaml(indent=2) }}"
+    dest: "{{ httpd_dir_vhosts }}/{{ vhost.domainname }}/config/ansible.yml"
+
+...

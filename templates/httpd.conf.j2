@@ -1,0 +1,47 @@
+<VirtualHost 127.0.0.1:8443>
+    ServerName {{ vhost.domainname }}
+
+{% if vhost.aliases is defined %}
+{% for alias in vhost.aliases %}
+    ServerAlias {{ alias }}
+{% endfor %}
+{% endif %}
+
+    DocumentRoot {{ httpd_dir_vhosts }}/{{ vhost.domainname }}/www/public
+    ErrorLog /var/log/httpd/{{ vhost.domainname }}_error.log
+    CustomLog /var/log/httpd/{{ vhost.domainname }}_access.log combined
+
+    SSLEngine on
+    SSLCertificateFile {{ httpd_ssl_cert }}
+    SSLCertificateKeyFile {{ httpd_ssl_key }}
+    # SSLCertificateChainFile {{ httpd_dir_vhosts }}/{{ vhost.domainname }}/ssl/fullchain.pem
+
+
+    <Directory {{ httpd_dir_vhosts }}/{{ vhost.domainname }}/www/public>
+        DirectoryIndex index.html index.php
+        Options -Indexes +FollowSymLinks +MultiViews
+        AllowOverride All
+        Require all granted
+
+        <Files .user.ini>
+            Order allow,deny
+            Deny from all
+        </Files>
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/var/run/php/php{{ vhost.phpversion }}-fpm.socket|fcgi://localhost/"
+    </FilesMatch>
+
+{% for db in vhost.databases %}
+{% if db.env == "yes" %}
+
+    SetEnv DATABASE_{{ db.env_name }}_HOST 'localhost'
+    SetEnv DATABASE_{{ db.env_name }}_NAME '{{ db.name }}'
+    SetEnv DATABASE_{{ db.env_name }}_USER '{{ db.user }}'
+    SetEnv DATABASE_{{ db.env_name }}_PASSWORD '{{ db.pssword }}'
+
+{% endif %}
+{% endfor %}
+
+</VirtualHost>

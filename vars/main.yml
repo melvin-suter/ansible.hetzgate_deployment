@@ -1,0 +1,51 @@
+---
+# --- nginx ---
+nginx_user: nginx
+nginx_group: nginx
+nginx_conf_dir: /etc/nginx/conf.d
+nginx_ssl_key: /etc/nginx/tmp_ssl_key.pem
+nginx_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
+
+# --- httpd ---
+httpd_conf_path: /etc/httpd/conf/httpd.conf
+httpd_conf_dir: /etc/httpd/vhosts
+httpd_dir_vhosts: /var/www/vhosts
+httpd_dir_logs: /var/log/httpd
+httpd_ssl_key: /etc/nginx/tmp_ssl_key.pem
+httpd_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
+
+httpd_vhost_dirs:
+- dir:  www/public
+  context: httpd_sys_rw_content_t
+  owner: "{{ httpd_user }}"
+  group: "{{ httpd_group }}"
+- dir: logs
+  context: httpd_log_t
+  owner: "{{ httpd_user }}"
+  group: "{{ httpd_group }}"
+- dir: backups
+  context: unconfined_t
+  owner: root
+  group: root
+- dir: cron
+  context: unconfined_t
+  owner: root
+  group: root
+- dir: scripts
+  context: unconfined_t
+  owner: root
+  group: root
+- dir: ssl
+  context: cert_t
+  owner: "{{ httpd_user }}"
+  group: "{{ httpd_group }}"
+- dir: bin
+  context: unconfined_t
+  owner: root
+  group: root
+- dir: config
+  context: unconfined_t
+  owner: root
+  group: root
+
+...

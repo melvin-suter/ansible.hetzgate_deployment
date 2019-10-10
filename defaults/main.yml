@@ -1,0 +1,7 @@
+---
+
+# --- httpd ---
+deployment_use_selinux: yes
+php_socket_folder: /var/run/php
+
+...

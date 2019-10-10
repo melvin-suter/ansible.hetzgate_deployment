@@ -1,0 +1,11 @@
+---
+- name: Create nginx config
+  template:
+    src: "templates/httpd_proxy.conf.j2"
+    dest: "{{ nginx_dir_conf }}/{{ vhost.domainname }}.conf"
+    owner: root
+    group: root
+    mode: '0640'
+  notify: nginx restarted
+  
+...

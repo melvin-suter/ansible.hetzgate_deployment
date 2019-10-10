@@ -1,0 +1,16 @@
+---
+
+# Deploy Websites
+- name: Deploy websites
+  include_tasks: httpd_deploy.yml
+  with_items: "{{ hetzgate_deployment_websites }}"
+  loop_control:
+    loop_var: vhost
+
+# Deploy Proxy-Hosts
+- name: Deploy proxy-hosts
+  include_tasks: nginx_deploy.yml
+  with_items: "{{ hetzgate_proxy_hosts }}"
+  loop_control:
+    loop_var: vhost
+...
