@@ -6,10 +6,6 @@
 - import_tasks: httpd_tasks/symlink.yml
   tags: ['web_stack_deployment','web_stack_deployment.symlink'] 
 
-- import_tasks: httpd_tasks/letsencrypt.yml
-  tags: ['web_stack_deployment','web_stack_deployment.letsencrypt']
-  when: webstack_deployment_letsencrypt == true
-
 - import_tasks: httpd_tasks/database.yml
   tags: ['web_stack_deployment','web_stack_deployment.database']
 

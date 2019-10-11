@@ -8,11 +8,13 @@ nginx_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
 
 # --- httpd ---
 httpd_conf_path: /etc/httpd/conf/httpd.conf
-httpd_conf_dir: /etc/httpd/vhosts
+httpd_dir_conf: /etc/httpd/vhosts
 httpd_dir_vhosts: /var/www/vhosts
 httpd_dir_logs: /var/log/httpd
 httpd_ssl_key: /etc/nginx/tmp_ssl_key.pem
 httpd_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
+httpd_user: httpd
+httpd_group: httpd
 
 httpd_vhost_dirs:
 - dir:  www/public
