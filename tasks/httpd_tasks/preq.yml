@@ -25,7 +25,7 @@
 
 - name: Create nginx config
   template:
-    src: "templates/httpd.conf.j2"
+    src: "templates/nginx.conf.j2"
     dest: "{{ httpd_dir_vhosts }}/{{ vhost.domainname }}/config/nginx.conf"
     owner: root
     group: root
