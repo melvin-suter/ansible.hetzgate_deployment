@@ -2,7 +2,7 @@
 # --- nginx ---
 nginx_user: nginx
 nginx_group: nginx
-nginx_conf_dir: /etc/nginx/conf.d
+nginx_dir_conf: /etc/nginx/conf.d
 nginx_ssl_key: /etc/nginx/tmp_ssl_key.pem
 nginx_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
 
