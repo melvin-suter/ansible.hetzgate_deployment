@@ -13,8 +13,8 @@ httpd_dir_vhosts: /var/www/vhosts
 httpd_dir_logs: /var/log/httpd
 httpd_ssl_key: /etc/nginx/tmp_ssl_key.pem
 httpd_ssl_cert: /etc/nginx/tmp_ssl_cert.pem
-httpd_user: httpd
-httpd_group: httpd
+httpd_user: apache
+httpd_group: apache
 
 httpd_vhost_dirs:
 - dir:  www/public
